@@ -1,8 +1,8 @@
 #pedra, papel e tesoura
 jogador1 = input('Digite seu nome: ')
 jogador2 = input('Digite seu nome: ')
-continuar = 'Ss'
-while continuar in 'Ss':
+continuar = 'Sim'
+while continuar in 'Sim':
     ppt1 = input(f'{jogador1} pedra, papel ou tesoura? ').upper()
     ppt2 = input(f'{jogador2} pedra, papel ou tesoura? ').upper()
     while ppt1 == ppt2:
