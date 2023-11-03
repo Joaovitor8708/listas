@@ -1,36 +1,65 @@
-class Cliente:
-    def __init__(self,numero, saldo, nome, tipo, status, limite):
+class Conta:
+    def __init__(self, numero, saldo, nome, tipo, limite):
         self.numero = numero
         self.saldo = saldo
         self.nome = nome
-        self.tipo = tipo
         self.status = False
+        self.tipo = tipo
         self.limite = limite
-    def depositar(self,valor):
-        if self.status == False:
-            print(f'{self.nome} não possui uma conta ativa.')
+        self.saldo_devedor = 0
+
+
+def depositar(self, valor):
+    if self.status == False:
+        print(f'{self.nome} não possui conta ativa.')
+    else:
         if valor > 0:
-            print(f'Saldo anterior = {self.saldo:.2f}.')
-            self.saldo += valor
-            print(f'Seu novo saldo é {self.saldo:.2f}')
+            if self.saldo_devedor > 0:
+                if self.saldo_devedor >= valor:
+                    self.saldo_devedor -= valor
+                    print(f'Você reduziu sua dívida em {valor:.2f}. Seu novo saldo devedor é {self.saldo_devedor: 2f}.')
+                else:
+                    valor -= self.saldo_devedor
+                    self.saldo_devedor = 0
+                    self.saldo += valor
+                    print(f'Saldo anterior = {self.saldo - valor:.2f} \n')
+                    print(f'Novo saldo é {self.saldo:.2f}.')
+            else:
+                print(f'Saldo anterior = {self.saldo:.2f}. \n')
+                self.saldo += valor
+                print(f'Novo saldo = {self.saldo:.2f}.')
         else:
-            print('Valor inválido.')
-    def sacar(self,valor):
-        if self.status == False:
-            print(f'{self.nome} não possui uma conta ativa.')
-        if valor <= self.saldo + self.limite:
+            print('Valor de depósito inválido.')
+
+
+def sacar(self, valor):
+    if self.status == False:
+        print(f'{self.nome} não possui conta ativa.')
+    else:
+        if valor > self.saldo:
+            if (self.saldo + self.limite - self.saldo_devedor) >= valor:
+                self.saldo_devedor += valor - self.saldo
+                self.saldo = 0
+                print(f'Saldo devedor é {self.saldo_devedor:.2f}.')
+            else:
+                print('Saldo insuficiente.')
+        else:
+            print(f'Saldo anterior = {self.saldo:.2f}')
             self.saldo -= valor
-            print(f'Você sacou {valor:.2f}, seu novo saldo é de {self.saldo:.2f}')
-        else:
-            print('Saldo insuficiente.')
-    def ativarconta(self):
-        if self.status == False:
-            print(f'{self.nome}, sua conta foi ativada')
-            self.status = True
-        else:
-            print('Sua conta já está ativada')
-    def verificarsaldo(self):
-        if self.status == False:
-            print(f'{self.nome} não possui uma conta ativa.')
-        else:
-            print(f'Você tem {self.saldo:.2f} reais')
+            print(f'Novo saldo é {self.saldo:.2f}')
+
+
+def ativarConta(self):
+    if self.status == False:
+        print(f'Conta ativada no nome de {self.nome}.')
+        self.status = True
+    else:
+        print(f'{self.nome} já tem uma conta em seu nome de numero {self.numero}.')
+
+
+def verificarSaldo(self):
+    if self.status == False:
+        print(f'{self.nome} não possui conta ativa.')
+    else:
+        if self.saldo >= 0:
+            print(f'Saldo da conta é {self.saldo:.2f}')
